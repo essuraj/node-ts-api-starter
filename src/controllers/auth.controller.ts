@@ -1,4 +1,4 @@
-import { Request, Response, Next } from "restify";
+import { Request, Response } from "restify";
 import BaseController from "../policies/base_controller";
 import { Controller } from "../policies/decorators/controller";
 import { HTTP_METHODS, Route } from "../policies/decorators/router";
