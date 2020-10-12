@@ -17,4 +17,12 @@ export default class AuthController extends BaseController {
       // this.ErrorResult(error, req, res, next);
     }
   }
+  @Route(HTTP_METHODS.GET, "/auth", true)
+  public async authorizedUser(req: Request, res: Response): Promise<any> {
+    try {
+      return res.send("hello there - " + (req.query.name ? req.query.name : ""));
+    } catch (error) {
+      // this.ErrorResult(error, req, res, next);
+    }
+  }
 }
