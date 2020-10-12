@@ -1,21 +1,14 @@
 import jwt = require("jsonwebtoken");
 import { Request, Response, Next } from "restify";
-import _ = require("lodash");
 import { logger } from "./init_app";
 
 export function IsAuthenticated(req: Request, res: Response, next: Next): any {
   const token = req.headers["at"] || req.params.at;
   try {
-    // check header or url parameters or post parameters for token
-
-    // if (!token && req.body && req.body.token) {
-    //   token = req.body.token; // check in req body
-    // }
-
     // decode token
-    if (!_.isNil(token)) {
+    if (token != null) {
       // verifies secret and checks exp
-      jwt.verify(token, process.env.SECRET, function(err, decoded) {
+      jwt.verify(token, process.env.SECRET, function (err) {
         if (err) {
           if (err.message && err.message === "jwt expired") {
             return res.json({ success: false, message: "Token expired." });
@@ -32,15 +25,14 @@ export function IsAuthenticated(req: Request, res: Response, next: Next): any {
       // return an error
       return res.send(403, {
         success: false,
-        message: "No token provided."
+        message: "No token provided.",
       });
     }
   } catch (error) {
     logger.error("IsAuthenticate", error, token);
     return res.send(403, {
       success: false,
-      message: "No token provided."
+      message: "No token provided.",
     });
   }
 }
-

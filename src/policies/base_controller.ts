@@ -17,7 +17,7 @@ export default class BaseController {
    * @returns User object.
    * (description) Gets the user from the restify request object by decoding the token.
    */
-  public getUser(req: Request):any {
+  public getUser(req: Request): any {
     let user;
 
     let token = req.headers["at"] || req.params.token;

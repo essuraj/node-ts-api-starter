@@ -14,9 +14,18 @@ export interface RouteDefinition {
   requestMethod: HTTP_METHODS;
   // Method name within our class responsible for this route
   methodName: string;
+  // authentication
   isAuthenticated: boolean;
 }
 
+/**
+ * lets you declare a route for http calls
+ *
+ * @param {HTTP_METHODS} method Http method by restify
+ * @param {string} [path=""] url path, can be :param or path
+ * @param {boolean} [isAuthorized=false] decide if the routes are restricted and are accessible only via jwt token
+ * @return {*}  {MethodDecorator}
+ */
 export const Route = (method: HTTP_METHODS, path: string = "", isAuthorized = false): MethodDecorator => {
   // `target` equals our class, `propertyKey` equals our decorated method name
   return (target, propertyKey: string): void => {
